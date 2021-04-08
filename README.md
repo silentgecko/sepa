@@ -1,7 +1,6 @@
 # SEPA Credit Transfer
-
-[![Build Status](https://travis-ci.com/silentgecko/sepa.svg?branch=master)](https://travis-ci.com/silentgecko/sepa)
-
+[![Testing sepa](https://github.com/silentgecko/sepa/actions/workflows/php.yml/badge.svg)](https://github.com/silentgecko/sepa/actions/workflows/php.yml)
+[![codecov](https://codecov.io/gh/silentgecko/sepa/branch/master/graph/badge.svg?token=MW78IS5L79)](https://codecov.io/gh/silentgecko/sepa)
 ### Installation using Composer
 
 ```
