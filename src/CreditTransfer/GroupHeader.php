@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @author Perry Faro 2015
  * @author René Welbers 2021 <info@wereco.de>
@@ -32,7 +33,7 @@ class GroupHeader
      * @param $messageIdentification
      * @param $initiatingPartyName
      */
-    function __construct($messageIdentification = false, $initiatingPartyName = false)
+    public function __construct($messageIdentification = false, $initiatingPartyName = false)
     {
         $this->messageIdentification = $messageIdentification;
         $this->initiatingPartyName = $initiatingPartyName;
@@ -98,5 +99,4 @@ class GroupHeader
         $this->messageIdentification = $messageIdentification;
         return $this;
     }
-
 }

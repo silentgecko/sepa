@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @author Perry Faro 2015
  * @author René Welbers 2021 <info@wereco.de>
@@ -140,5 +141,4 @@ class PaymentInformation
 
         return $this;
     }
-
 }

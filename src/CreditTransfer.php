@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @author Perry Faro 2015
  * @author René Welbers 2021 <info@wereco.de>
@@ -62,5 +63,4 @@ class CreditTransfer
         $build->appendPaymentInformation($this->paymentInformation);
         return $build->xml();
     }
-
 }

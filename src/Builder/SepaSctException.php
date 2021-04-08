@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @author René Welbers <info@wereco.de>
  * @license MIT
