@@ -20,7 +20,7 @@ jobs:
         php-version: ${{ matrix.php-versions }}
         extensions: xml
         coverage: xdebug
-        tools: phpcs, phpunit, composer
+        tools: phpcs, phpunit, composer, cs2pr
       env:
         update: true
 
