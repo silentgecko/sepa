@@ -1,4 +1,4 @@
-name: Testing sepa
+name: CodeStyle, Testing and Coverage
 on: [push, pull_request]
 
 jobs:
