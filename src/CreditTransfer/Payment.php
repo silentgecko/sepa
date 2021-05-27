@@ -27,7 +27,7 @@ class Payment
 
     protected string $endToEndId;
 
-    protected string $remittanceInformation;
+    protected string $remittanceInformation = '';
 
     public function getAmount(): string
     {
