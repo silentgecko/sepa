@@ -116,11 +116,11 @@ class CreditTransfer extends Base
             $creditorAgent = $this->createElement('CdtrAgt');
             $financialInstitution = $this->createElement('FinInstnId');
 
-            if ($payment->getCreditorBIC() === 'NOTPROVIDED' && $this->getPainFormat() === 'pain.001.001.03') {
+            if ($payment->getCreditorBIC() === 'NOTPROVIDED' && $this->getPainFormat() === 'pain.001.003.03') {
                 $financialInstitutionOther = $this->createElement('Othr');
                 $financialInstitutionOther->appendChild($this->createElement('Id', $payment->getCreditorBIC()));
                 $financialInstitution->appendChild($financialInstitutionOther);
-            } else {
+            } elseif ($payment->getCreditorBIC() !== 'NOTPROVIDED') {
                 $financialInstitution->appendChild($this->createElement('BIC', $payment->getCreditorBIC()));
             }
 
