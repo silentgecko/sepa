@@ -69,7 +69,7 @@ class Payment
 
     public function setCreditorBIC(string $bic): self
     {
-        if ($bic !== null && $bic !== '') {
+        if ($bic !== '') {
             $this->creditorBic = $bic;
         }
         return $this;

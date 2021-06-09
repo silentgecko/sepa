@@ -48,17 +48,6 @@ class Base
         return $this->painFormat;
     }
 
-    protected function financialInstitution(string $bic = ''): DOMElement
-    {
-        if ($bic === '') {
-            $bic = 'NOTPROVIDED';
-        }
-        $finInstitution = $this->createElement('FinInstnId');
-        $finInstitution->appendChild($this->createElement('BIC', $bic));
-
-        return $finInstitution;
-    }
-
     protected function createElement(string $name, string $value = null): DOMElement
     {
         $elm = $this->dom->createElement($name);

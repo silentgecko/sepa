@@ -10,6 +10,7 @@ namespace silentgecko\Sepa\Builder;
 
 use DOMElement;
 use silentgecko\Sepa\CreditTransfer\GroupHeader;
+use silentgecko\Sepa\CreditTransfer\Payment;
 use silentgecko\Sepa\CreditTransfer\PaymentInformation;
 
 /**
@@ -90,7 +91,17 @@ class CreditTransfer extends Base
         $this->payment->appendChild($debtorAgentAccount);
 
         $debtorAgent = $this->createElement('DbtrAgt');
-        $debtorAgent->appendChild($this->financialInstitution($paymentInformation->getDebtorBIC()));
+        $financialInstitution = $this->createElement('FinInstnId');
+
+        if ($paymentInformation->getDebtorBIC() === 'NOTPROVIDED' && $this->getPainFormat() === 'pain.001.003.03') {
+            $financialInstitutionOther = $this->createElement('Othr');
+            $financialInstitutionOther->appendChild($this->createElement('Id', $paymentInformation->getDebtorBIC()));
+            $financialInstitution->appendChild($financialInstitutionOther);
+        } elseif ($paymentInformation->getDebtorBIC() !== 'NOTPROVIDED') {
+            $financialInstitution->appendChild($this->createElement('BIC', $paymentInformation->getDebtorBIC()));
+        }
+
+        $debtorAgent->appendChild($financialInstitution);
         $this->payment->appendChild($debtorAgent);
 
         $this->appendPayments($paymentInformation->getPayments());
@@ -100,6 +111,7 @@ class CreditTransfer extends Base
 
     protected function appendPayments($payments): void
     {
+        /** @var Payment $payment */
         foreach ($payments as $payment) {
             $creditTransferTransactionInformation = $this->createElement('CdtTrfTxInf');
 
@@ -113,19 +125,13 @@ class CreditTransfer extends Base
             $amount->appendChild($instructedAmount);
             $creditTransferTransactionInformation->appendChild($amount);
 
-            $creditorAgent = $this->createElement('CdtrAgt');
-            $financialInstitution = $this->createElement('FinInstnId');
-
-            if ($payment->getCreditorBIC() === 'NOTPROVIDED' && $this->getPainFormat() === 'pain.001.003.03') {
-                $financialInstitutionOther = $this->createElement('Othr');
-                $financialInstitutionOther->appendChild($this->createElement('Id', $payment->getCreditorBIC()));
-                $financialInstitution->appendChild($financialInstitutionOther);
-            } elseif ($payment->getCreditorBIC() !== 'NOTPROVIDED') {
+            if ($payment->getCreditorBIC() !== 'NOTPROVIDED') {
+                $creditorAgent = $this->createElement('CdtrAgt');
+                $financialInstitution = $this->createElement('FinInstnId');
                 $financialInstitution->appendChild($this->createElement('BIC', $payment->getCreditorBIC()));
+                $creditorAgent->appendChild($financialInstitution);
+                $creditTransferTransactionInformation->appendChild($creditorAgent);
             }
-
-            $creditorAgent->appendChild($financialInstitution);
-            $creditTransferTransactionInformation->appendChild($creditorAgent);
 
             $creditor = $this->createElement('Cdtr');
             $creditor->appendChild($this->createElement('Nm', $payment->getCreditorName()));
